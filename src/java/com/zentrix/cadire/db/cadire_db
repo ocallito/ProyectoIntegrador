@@ -1,0 +1,192 @@
+-- Crear la base de datos
+CREATE DATABASE IF NOT EXISTS cadire_db;
+USE cadire_db;
+
+-- Tabla de empresas (centros de reciclaje)
+CREATE TABLE empresas (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nombre_empresa VARCHAR(100) NOT NULL,
+    direccion VARCHAR(200) NOT NULL,
+    colonia VARCHAR(100),
+    ciudad VARCHAR(100) DEFAULT 'León',
+    estado VARCHAR(50) DEFAULT 'Guanajuato',
+    telefono VARCHAR(15),
+    horario_atencion VARCHAR(100),
+    latitud DECIMAL(10, 8),
+    longitud DECIMAL(11, 8),
+    sitio_web VARCHAR(100),
+    verificada BOOLEAN DEFAULT false,
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Tabla de materiales reciclables
+CREATE TABLE materiales (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nombre_material VARCHAR(50) NOT NULL,
+    categoria VARCHAR(50),
+    descripcion TEXT,
+    unidad_medida VARCHAR(20) DEFAULT 'kg',
+    icono VARCHAR(50)
+);
+
+-- Tabla intermedia empresa_material (precios por material en cada empresa)
+CREATE TABLE empresa_material (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    empresa_id INT NOT NULL,
+    material_id INT NOT NULL,
+    precio DECIMAL(10, 2) NOT NULL,
+    precio_kg DECIMAL(10, 2) NOT NULL,
+    precio_tonelada DECIMAL(10, 2),
+    condicion_compra TEXT,
+    ultima_actualizacion DATE,
+    FOREIGN KEY (empresa_id) REFERENCES empresas(id) ON DELETE CASCADE,
+    FOREIGN KEY (material_id) REFERENCES materiales(id) ON DELETE CASCADE,
+    UNIQUE KEY unique_empresa_material (empresa_id, material_id)
+);
+
+-- Tabla de usuarios (para login)
+CREATE TABLE usuarios (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(50) NOT NULL,
+    apellido_paterno VARCHAR(50) NOT NULL,
+    apellido_materno VARCHAR(50),
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    tipo_usuario ENUM('vendedor', 'administrador', 'empresa') DEFAULT 'vendedor',
+    empresa_id INT,
+    telefono VARCHAR(15),
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    ultimo_acceso TIMESTAMP NULL,
+    activo BOOLEAN DEFAULT true,
+    FOREIGN KEY (empresa_id) REFERENCES empresas(id) ON DELETE SET NULL
+);
+
+-- Insertar datos de prueba en materiales
+INSERT INTO materiales (nombre_material, categoria, descripcion, unidad_medida, icono) VALUES
+('PET', 'Plástico', 'Botellas de plástico transparente (agua, refrescos)', 'kg', 'plastic'),
+('HDPE', 'Plástico', 'Plástico de alta densidad (garrafones, envases de leche)', 'kg', 'plastic'),
+('Cartón', 'Papel y Cartón', 'Cajas de cartón, empaques', 'kg', 'cardboard'),
+('Periódico', 'Papel y Cartón', 'Periódicos y revistas', 'kg', 'paper'),
+('Vidrio', 'Vidrio', 'Botellas y frascos de vidrio', 'kg', 'glass'),
+('Aluminio', 'Metales', 'Latas de aluminio', 'kg', 'aluminum'),
+('Cobre', 'Metales', 'Cobre eléctrico, tuberías', 'kg', 'copper'),
+('Acero', 'Metales', 'Acero, hierro', 'kg', 'steel'),
+('Tetrapak', 'Multicapa', 'Envases multicapa de jugo, leche', 'kg', 'tetrapak'),
+('Electrónicos', 'Electrónicos', 'Computadoras, celulares, electrodomésticos', 'pieza', 'electronics');
+
+-- Insertar datos de prueba en empresas
+INSERT INTO empresas (nombre_empresa, direccion, colonia, telefono, horario_atencion, latitud, longitud, verificada) VALUES
+('Recicladora del Centro', 'Av. López Mateos #345', 'Centro', '4771234567', 'Lun-Vie 9:00-18:00, Sáb 9:00-14:00', 21.123456, -101.678901, true),
+('EcoLeón Recicla', 'Blvd. Aeropuerto #567', 'San Miguel', '4772345678', 'Lun-Sáb 8:00-19:00', 21.145678, -101.654321, true),
+('Green Cycle México', 'Calle Madero #789', 'La Luz', '4773456789', 'Lun-Vie 8:30-17:30', 21.156789, -101.689012, true),
+('Recicladora Industrial', 'Carretera a Lagos #1234', 'Industrial', '4774567890', 'Lun-Vie 9:00-16:00', 21.167890, -101.712345, true),
+('Valles Recyclers', 'Av. Universidad #234', 'Valle de León', '4775678901', 'Lun-Sáb 10:00-18:00', 21.178901, -101.723456, false);
+
+-- Insertar datos de prueba en empresa_material (precios)
+INSERT INTO empresa_material (empresa_id, material_id, precio, precio_kg, precio_tonelada, condicion_compra, ultima_actualizacion) VALUES
+-- Recicladora del Centro
+(1, 1, 8.50, 8.50, 8500.00, 'Botellas limpias y compactadas', '2024-01-15'),
+(1, 3, 3.20, 3.20, 3200.00, 'Cartón seco, limpio y compactado', '2024-01-15'),
+(1, 5, 1.50, 1.50, 1500.00, 'Vidrio limpio sin tapas', '2024-01-10'),
+(1, 6, 25.00, 25.00, 25000.00, 'Latas limpias y compactadas', '2024-01-15'),
+
+-- EcoLeón Recicla
+(2, 1, 9.00, 9.00, 9000.00, 'PET cristal, sin etiquetas', '2024-01-20'),
+(2, 2, 7.50, 7.50, 7500.00, 'HDPE natural y de color', '2024-01-20'),
+(2, 3, 3.50, 3.50, 3500.00, 'Cartón en pacas', '2024-01-20'),
+(2, 4, 2.80, 2.80, 2800.00, 'Periódico limpio y seco', '2024-01-18'),
+(2, 7, 85.00, 85.00, 85000.00, 'Cobre limpio, sin forro', '2024-01-20'),
+
+-- Green Cycle México
+(3, 1, 8.00, 8.00, 8000.00, 'PET de todos colores', '2024-01-22'),
+(3, 2, 7.00, 7.00, 7000.00, 'HDPE en pacas', '2024-01-22'),
+(3, 3, 3.00, 3.00, 3000.00, 'Cartón en fardos', '2024-01-22'),
+(3, 5, 1.20, 1.20, 1200.00, 'Vidrio mezclado', '2024-01-15'),
+(3, 8, 4.50, 4.50, 4500.00, 'Acero en pacas', '2024-01-22'),
+(3, 9, 1.80, 1.80, 1800.00, 'Tetrapak compactado', '2024-01-22'),
+
+-- Recicladora Industrial
+(4, 1, 7.50, 7.50, 7500.00, 'PET en pacas, mínimo 100kg', '2024-01-18'),
+(4, 3, 2.90, 2.90, 2900.00, 'Cartón industrial en pacas', '2024-01-18'),
+(4, 7, 82.00, 82.00, 82000.00, 'Cobre de primera calidad', '2024-01-18'),
+(4, 8, 4.20, 4.20, 4200.00, 'Hierro y acero', '2024-01-18'),
+
+-- Valles Recyclers
+(5, 1, 7.00, 7.00, 7000.00, 'PET sin requisitos especiales', '2024-01-10'),
+(5, 2, 6.50, 6.50, 6500.00, 'HDPE de todo tipo', '2024-01-10'),
+(5, 3, 2.50, 2.50, 2500.00, 'Cartón sin requisitos especiales', '2024-01-10');
+
+-- Insertar usuarios de prueba
+INSERT INTO usuarios (nombre, apellido_paterno, apellido_materno, email, password_hash, tipo_usuario, empresa_id, telefono) VALUES
+('Admin', 'Sistema', 'CADIRE', 'admin@cadire.com', '$2y$10$YourHashedPasswordHere', 'administrador', NULL, '4771111111'),
+('Edgar', 'Guevara', 'Gómez', 'edgar.guevara@email.com', '$2y$10$YourHashedPasswordHere', 'vendedor', NULL, '4772222222'),
+('Mauricio', 'Martínez', 'Torres', 'mauricio.martinez@email.com', '$2y$10$YourHashedPasswordHere', 'vendedor', NULL, '4773333333'),
+('Oscar', 'Pacheco', 'García', 'oscar.pacheco@email.com', '$2y$10$YourHashedPasswordHere', 'vendedor', NULL, '4774444444'),
+('Abril', 'Rodríguez', 'Becerra', 'abril.rodriguez@email.com', '$2y$10$YourHashedPasswordHere', 'vendedor', NULL, '4775555555'),
+('Pedro', 'Vargas', 'Sierra', 'pedro.vargas@email.com', '$2y$10$YourHashedPasswordHere', 'vendedor', NULL, '4776666666'),
+('Contacto', 'EcoLeón', NULL, 'contacto@ecoleon.com', '$2y$10$YourHashedPasswordHere', 'empresa', 2, '4772345678');
+
+-- Crear vistas útiles
+CREATE VIEW vw_precios_actuales AS
+SELECT 
+    e.nombre_empresa,
+    e.direccion,
+    e.telefono,
+    m.nombre_material,
+    m.categoria,
+    em.precio_kg,
+    em.precio_tonelada,
+    em.condicion_compra,
+    em.ultima_actualizacion
+FROM empresa_material em
+JOIN empresas e ON em.empresa_id = e.id
+JOIN materiales m ON em.material_id = m.id
+WHERE e.verificada = true
+ORDER BY m.categoria, m.nombre_material, em.precio_kg DESC;
+
+CREATE VIEW vw_comparativa_precios AS
+SELECT 
+    m.nombre_material,
+    MIN(em.precio_kg) AS precio_minimo,
+    MAX(em.precio_kg) AS precio_maximo,
+    ROUND(AVG(em.precio_kg), 2) AS precio_promedio,
+    COUNT(DISTINCT em.empresa_id) AS num_empresas
+FROM empresa_material em
+JOIN materiales m ON em.material_id = m.id
+GROUP BY m.nombre_material
+ORDER BY m.nombre_material;
+
+-- Crear índices para mejorar rendimiento
+CREATE INDEX idx_empresa_material_precio ON empresa_material(precio_kg);
+CREATE INDEX idx_empresa_verificada ON empresas(verificada);
+CREATE INDEX idx_material_categoria ON materiales(categoria);
+
+-- Consultas de ejemplo
+
+-- 1. Ver todos los materiales con sus precios por empresa
+SELECT * FROM vw_precios_actuales;
+
+-- 2. Comparativa de precios por material
+SELECT * FROM vw_comparativa_precios;
+
+-- 3. Buscar empresas que compren PET y su precio
+SELECT 
+    e.nombre_empresa,
+    e.direccion,
+    e.telefono,
+    em.precio_kg,
+    em.condicion_compra
+FROM empresas e
+JOIN empresa_material em ON e.id = em.empresa_id
+JOIN materiales m ON em.material_id = m.id
+WHERE m.nombre_material = 'PET' AND e.verificada = true
+ORDER BY em.precio_kg DESC;
+
+-- 4. Empresas con mayor variedad de materiales
+SELECT 
+    e.nombre_empresa,
+    COUNT(em.material_id) as total_materiales
+FROM empresas e
+LEFT JOIN empresa_material em ON e.id = em.empresa_id
+GROUP BY e.id, e.nombre_empresa
+ORDER BY total_materiales DESC;
