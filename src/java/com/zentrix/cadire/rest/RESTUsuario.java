@@ -52,5 +52,7 @@ public class RESTUsuario {
         }
         return Response.status(Response.Status.OK).entity(out).build();
     }
+    
+    
 }
  
