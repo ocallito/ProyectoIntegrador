@@ -1,0 +1,268 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: white;
+    min-height: 100vh;
+}
+
+ 
+header {
+    text-align: center;
+    padding: 40px 20px;
+    background: rgba(0,0,0,0.2);
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+header::before {
+    content: '♻️';
+    position: absolute;
+    font-size: 200px;
+    opacity: 0.05;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+header img {
+    width: 140px;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
+}
+
+header h1 {
+    font-size: 42px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    background: linear-gradient(90deg, #00ffcc, #00ccff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 10px 0;
+}
+
+header p {
+    font-size: 18px;
+    opacity: 0.8;
+    font-weight: 300;
+}
+
+ 
+.filtros {
+    width: 90%;
+    max-width: 600px;
+    margin: 30px auto;
+    position: relative;
+}
+
+.filtros::before {
+    content: 'Filtrar por material';
+    display: block;
+    margin-bottom: 10px;
+    font-size: 14px;
+    opacity: 0.7;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.filtros select {
+    width: 100%;
+    padding: 15px 20px;
+    border-radius: 50px;
+    border: 2px solid rgba(0,255,204,0.3);
+    background: rgba(0,0,0,0.3);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2300ffcc' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 20px;
+    padding-right: 50px;
+    transition: 0.3s;
+}
+
+.filtros select:hover,
+.filtros select:focus {
+    border-color: #00ffcc;
+    outline: none;
+    box-shadow: 0 0 20px rgba(0,255,204,0.2);
+}
+
+ 
+.catalogo {
+    width: 90%;
+    max-width: 1100px;
+    margin: 30px auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+ 
+.card {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    padding: 25px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #00ffcc, transparent);
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    background: rgba(255,255,255,0.1);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+
+.card:hover::before {
+    opacity: 1;
+}
+
+.card h3 {
+    font-size: 20px;
+    margin-bottom: 12px;
+    color: #fff;
+    font-weight: 600;
+}
+
+.card p {
+    margin: 8px 0;
+    font-size: 14px;
+    opacity: 0.85;
+    line-height: 1.5;
+}
+
+.precio {
+    font-size: 24px;
+    font-weight: 800;
+    color: #00ffcc;
+    margin-top: 15px;
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+}
+
+.card small {
+    display: block;
+    margin-top: 10px;
+    color: #00ffcc;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+}
+
+.card:hover small {
+    opacity: 1;
+    transform: translateX(5px);
+}
+
+ 
+.card-activa {
+    background: rgba(0, 255, 204, 0.25) !important;
+    border: 2px solid #00ffcc;
+    transform: scale(1.02);
+    box-shadow: 0 0 20px rgba(0, 255, 204, 0.3);
+}
+
+ 
+#mapa {
+    height: 500px;
+    width: 90%;
+    max-width: 1100px;
+    margin: 40px auto;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 2px solid rgba(0,255,204,0.2);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    position: relative;
+}
+
+#mapa::before {
+    content: '📍 Mapa de Recicladoras';
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(0,0,0,0.7);
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-weight: 600;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+ 
+footer {
+    text-align: center;
+    padding: 30px;
+    opacity: 0.7;
+    font-size: 14px;
+    margin-top: 20px;
+}
+
+ 
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.15); opacity: 0.8; }
+}
+
+ 
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 32px;
+    }
+    
+    #mapa {
+        height: 350px;
+        width: 95%;
+    }
+    
+    .catalogo {
+        width: 95%;
+    }
+    
+    .card {
+        padding: 20px;
+    }
+}
+
+ 
+.catalogo::-webkit-scrollbar {
+    width: 8px;
+}
+
+.catalogo::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.1);
+    border-radius: 4px;
+}
+
+.catalogo::-webkit-scrollbar-thumb {
+    background: rgba(0,255,204,0.5);
+    border-radius: 4px;
+}
+
+.catalogo::-webkit-scrollbar-thumb:hover {
+    background: rgba(0,255,204,0.8);
+}
