@@ -1,0 +1,54 @@
+.login-body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.login-card {
+    width: 360px;
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(18px);
+    border-radius: 20px;
+    padding: 40px;
+    color: white;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.45);
+    border: 1px solid rgba(0,255,204,0.25);
+}
+.input-glass {
+    background: rgba(255,255,255,0.07) !important;
+    border: 1px solid rgba(255,255,255,0.18) !important;
+    color: white !important;
+}
+
+.input-glass::placeholder {
+    color: rgba(255,255,255,0.6);
+}
+
+.input-glass:focus {
+    background: rgba(255,255,255,0.12) !important;
+    border-color: #00ffcc !important;
+    box-shadow: 0 0 0 0.2rem rgba(0,255,204,0.18) !important;
+    color: white !important;
+}
+.btn-login {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #00ffcc, #00c9a7);
+    color: #003b36;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+
+ 
+.btn-login:active {
+    transform: scale(0.97);
+}
+.texto-centrado {
+    text-align: center;
+}

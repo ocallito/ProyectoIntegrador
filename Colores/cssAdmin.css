@@ -1,0 +1,209 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: white;
+}
+
+.navbar-admin {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    background: rgba(0,0,0,0.25);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.navbar-brand {
+    color: #00ffcc;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.btn-volver {
+    background: transparent;
+    border: 1px solid rgba(0,255,204,0.5);
+    color: #00ffcc;
+    padding: 6px 16px;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.btn-volver:hover {
+    background: rgba(0,255,204,0.2);
+    box-shadow: 0 0 15px rgba(0,255,204,0.3);
+}
+
+
+.admin-container {
+    display: flex;
+    height: calc(100vh - 50px);
+    margin-top: 50px;
+}
+
+.panel-sucursales {
+    width: 350px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    overflow-y: auto;
+    padding: 20px;
+    border-right: 1px solid rgba(255,255,255,0.1);
+}
+
+.panel-header {
+    color: white;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #00ffcc;
+}
+
+.panel-header h2 {
+    font-size: 1.3rem;
+}
+
+.contador-sucursales {
+    color: #00ffcc;
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+
+.card-empresa {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 1px solid rgba(255,255,255,0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.card-empresa::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #00ffcc, transparent);
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.card-empresa:hover {
+    transform: translateX(5px);
+    background: rgba(255,255,255,0.1);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+.card-empresa:hover::before {
+    opacity: 1;
+}
+
+.card-empresa.card-activa {
+    background: rgba(0, 255, 204, 0.25);
+    border: 2px solid #00ffcc;
+    box-shadow: 0 0 20px rgba(0,255,204,0.3);
+}
+
+.card-empresa h3 {
+    color: #00ffcc;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+
+.card-empresa p {
+    color: rgba(255,255,255,0.8);
+    margin: 5px 0;
+    font-size: 0.9rem;
+}
+
+.card-empresa .precio {
+    color: #00ffcc;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.ver-mapa-hint {
+    color: #00ffcc;
+    font-size: 0.8rem;
+    margin-top: 10px;
+    opacity: 0.8;
+}
+
+
+#mapa {
+    flex: 1;
+    height: 100%;
+    position: relative;
+    border-left: 1px solid rgba(255,255,255,0.05);
+}
+
+
+.leaflet-popup-content-wrapper {
+    background: rgba(0,0,0,0.85);
+    color: white;
+    border-radius: 10px;
+    border: 1px solid rgba(0,255,204,0.5);
+    backdrop-filter: blur(10px);
+}
+
+.leaflet-popup-tip {
+    background: rgba(0,0,0,0.85);
+}
+
+
+.panel-sucursales::-webkit-scrollbar {
+    width: 8px;
+}
+
+.panel-sucursales::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.1);
+}
+
+.panel-sucursales::-webkit-scrollbar-thumb {
+    background: rgba(0,255,204,0.5);
+    border-radius: 4px;
+}
+
+.panel-sucursales::-webkit-scrollbar-thumb:hover {
+    background: rgba(0,255,204,0.8);
+}
+
+
+@media (max-width: 768px) {
+    .panel-sucursales {
+        width: 100%;
+        position: absolute;
+        z-index: 500;
+        height: 40%;
+        bottom: 0;
+        border-right: none;
+        border-top: 2px solid #00ffcc;
+    }
+
+    #mapa {
+        height: 60%;
+    }
+}
+

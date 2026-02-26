@@ -1,0 +1,47 @@
+
+<html>
+    <head>
+        <title>Catálogo Digital de Reciclaje</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Equipo Zentrix">
+        <link rel="stylesheet" href="style/bootstrap/css/bootstrap-grid.rtl.min.css">
+        <link rel="stylesheet" href="Colores/css.css">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+</head>
+
+<body onload="cargarCatalogo(); iniciarMapa();">
+
+    <header>
+        <img src="img/logo.png" alt="Zentrix Logo">
+        <h1>CADIRE</h1>
+        <p>Encuentra dónde vender tus residuos al mejor precio</p>
+    </header>
+
+    <section class="filtros">
+
+        <select id="material" onchange="buscarPorMaterial()">
+            <option value="">Todos los materiales</option>
+            <option value="Plástico">Plástico</option>
+            <option value="Cartón">Cartón</option>
+            <option value="Metales">Metales</option>
+            <option value="Vidrio">Vidrio</option>
+        </select>
+
+    </section>
+    <section class="catalogo" id="catalogo">
+    </section>
+    <section>
+<div id="mapa"></div>
+    </section>
+    <footer>
+        © 2026 Zentrix - Tecnología que impulsa el reciclaje
+    </footer>
+
+    <script src="js/app.js"></script>
+
+</body>
+</html>
