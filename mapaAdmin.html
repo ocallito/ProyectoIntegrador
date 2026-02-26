@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa Admin - CADIRE</title>
+    
+    <link rel="stylesheet" href="../style/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="../Colores/cssAdmin.css">
+</head>
+
+<body onload="cargarCatalogo(); iniciarMapa();">
+
+    <nav class="navbar-admin">
+        <span class="navbar-brand">📍 Mapa de Sucursales - Administrador</span>
+        <a href="menu.html" class="btn-volver">← Volver al Menú</a>
+    </nav>
+
+    <div class="admin-container">
+        <aside class="panel-sucursales">
+            <div class="panel-header">
+                <h2>🏢 Sucursales Registradas</h2>
+                <div class="contador-sucursales" id="contador">Cargando...</div>
+            </div>
+            <div id="catalogo"></div>
+        </aside>
+
+        <div id="mapa"></div>
+    </div>
+
+    <script src="../js/mapaAdmin.js"></script>
+</body>
+</html>
