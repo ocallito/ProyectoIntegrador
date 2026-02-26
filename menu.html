@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CADIRE - Panel Administrador</title>
+    <link rel="stylesheet" href="../style/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../style/bootstrap/css/bootstrap-grid.css">
+    <link rel="stylesheet" href="../style/bootstrap/css/bootstrap-utilities.css">
+    <link rel="stylesheet" href="../Colores/menu.css">
+</head>
+
+<body class="bg-light">
+   <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    <div class="container-fluid">
+
+        <a class="navbar-brand" href="#">CADIRE Admin</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="index_admin.html">Empresas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="mapaAdmin.html" onclick="mostrarMapaAdmin()">Mapa</a>
+                </li>
+            </ul>
+            <div class="ms-auto">
+                </a>
+                <a href="login.html" class="btn-logout"
+            onclick="return confirm('¿Seguro que deseas cerrar sesión?')">
+            Cerrar Sesión
+         </a>
+            </div>
+
+        </div>
+    </div>
+</nav>
+
+    <div id="contenedor-principal" class="container mt-4">
+        <div class="text-center mt-5 text-muted">
+            <h3>Bienvenido al Panel Administrador</h3>
+            <p>Selecciona una opción del menú para comenzar.</p>
+        </div>
+    </div>
+    <script src="../style/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/admin.js"></script>
+    <script src="../js/mapaAdmin.js"></script>
+</body>
+</html>
